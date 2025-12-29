@@ -1,0 +1,12 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 UPDATE clean SET age_employee = TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) WHERE age_employee IS NULL AND birth_date IS NOT NULL;\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Explanation:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This statement calculates the employee age in full years based on the birth_date column.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) Returns the number of complete years between the birth date and the current date, ensuring an accurate age calculation.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 WHERE age_employee IS NULL Limits the update to records that have not yet been calculated, making the operation idempotent and safe to rerun.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 AND birth_date IS NOT NULL Prevents invalid calculations and enforces data quality by excluding records without a valid birth date.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This logic reflects a defensive, production-ready approach to data transformation in SQL.\par}
+}

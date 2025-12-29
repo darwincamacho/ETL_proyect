@@ -1,0 +1,568 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf2 \CocoaLigature0 darwincamachoherrera@Darwins-MacBook-Air ~ % which mysql\
+\
+mysql not found\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql --version\
+zsh: command not found: mysql\
+darwincamachoherrera@Darwins-MacBook-Air ~ % ls /usr/local/mysql/bin\
+\
+ibd2sdi				myisamchk			mysql_secure_installation	mysqld				mysqlpump\
+innochecksum			myisamlog			mysql_ssl_rsa_setup		mysqld-debug			mysqlshow\
+libprotobuf-lite.24.4.0.dylib	myisampack			mysql_tzinfo_to_sql		mysqld_multi			mysqlslap\
+libprotobuf.24.4.0.dylib	mysql				mysql_upgrade			mysqld_safe			perror\
+lz4_decompress			mysql_config			mysqladmin			mysqldump			zlib_decompress\
+my_print_defaults		mysql_config_editor		mysqlbinlog			mysqldumpslow\
+myisam_ftdump			mysql_migrate_keyring		mysqlcheck			mysqlimport\
+darwincamachoherrera@Darwins-MacBook-Air ~ % echo 'export PATH="/usr/local/mysql/bin:$PATH"' >> ~/.zprofile\
+\
+darwincamachoherrera@Darwins-MacBook-Air ~ % source ~/.zprofile\
+\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql --version\
+\
+mysql  Ver 8.0.44 for macos15 on x86_64 (MySQL Community Server - GPL)\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql -u root -p\
+\
+Enter password: \
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql -u root -p\
+\
+Enter password: \
+Welcome to the MySQL monitor.  Commands end with ; or \\g.\
+Your MySQL connection id is 9\
+Server version: 8.0.44 MySQL Community Server - GPL\
+\
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.\
+\
+Oracle is a registered trademark of Oracle Corporation and/or its\
+affiliates. Other names may be trademarks of their respective\
+owners.\
+\
+Type 'help;' or '\\h' for help. Type '\\c' to clear the current input statement.\
+\
+mysql> exit;\
+Bye\
+darwincamachoherrera@Darwins-MacBook-Air ~ % head -5 ~/Desktop/Limpieza_limpio_utf8.csv\
+\
+empleado,Name,Apellido,birth_date,g\'8enero,area,salary,star_date,finish_date,promotion_date,type;\
+"00-0037846,Kimmy,Walczynski,06/04/1991,hombre,Engineering,"" $77,719 "",1/20/2002,,,0";\
+"00-0041533,Ignatius,Springett,6/29/1984,hombre,Business Development,"" $135,189 "",04/08/2019,,,0";\
+"00-0045747,Corbie,Bittlestone,7/29/1989,hombre,Sales,"" $122,484 "",10/12/2010,,,1";\
+"00-0055274,Baxy,Matton,9/14/1982,mujer,Services,"" $82,100 "",04/10/2005,,,0";\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql -u root -p\
+\
+Enter password: \
+Welcome to the MySQL monitor.  Commands end with ; or \\g.\
+Your MySQL connection id is 10\
+Server version: 8.0.44 MySQL Community Server - GPL\
+\
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.\
+\
+Oracle is a registered trademark of Oracle Corporation and/or its\
+affiliates. Other names may be trademarks of their respective\
+owners.\
+\
+Type 'help;' or '\\h' for help. Type '\\c' to clear the current input statement.\
+\
+mysql> USE portfolio_sql;\
+ERROR 1049 (42000): Unknown database 'portfolio_sql'\
+mysql> USE portfolio_sql;\
+ERROR 1049 (42000): Unknown database 'portfolio_sql'\
+mysql> CREATE DATABASE clean;\
+Query OK, 1 row affected (0.01 sec)\
+\
+mysql> USE clean;\
+Database changed\
+mysql> SELECT DATABASE clean();\
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'clean()' at line 1\
+mysql> SELECT DTABASE();\
+ERROR 1305 (42000): FUNCTION clean.DTABASE does not exist\
+mysql> SELECT DATABASE();\
++------------+\
+| DATABASE() |\
++------------+\
+| clean      |\
++------------+\
+1 row in set (0.00 sec)\
+\
+mysql> CREATE TABLE empleados_staging(\
+    -> eempleado VARCHAR(20),\
+    -> name VARCHAR(50),\
+    -> apellido VARCHAR(50),\
+    -> birth_date_raw VARCHAR(20),\
+    -> genero_raw VARCHAR(20),\
+    -> area VARCHAR(100),\
+    -> salary_raw(20),\
+    -> start_day_raw VARCHAR(20),\
+    -> finish_date_raw VARCHAR(20),\
+    -> promotion_date_raw VARCHAR(20),\
+    -> type_flag VARCHAR(5)\
+    -> );\
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(20),\
+start_day_raw VARCHAR(20),\
+finish_date_raw VARCHAR(20),\
+promotion_date_raw' at line 8\
+mysql> CREATE TABLE empleados_staging(\
+    ->     -> eempleado VARCHAR(20),\
+    ->     -> name VARCHAR(50),\
+    ->     -> apellido VARCHAR(50),\
+    ->     -> birth_date_raw VARCHAR(20),\
+    ->     -> genero_raw VARCHAR(20),\
+    ->     -> area VARCHAR(100),\
+    ->     -> salary_raw(20),\
+    ->     -> start_day_raw VARCHAR(20),\
+    ->     -> finish_date_raw VARCHAR(20),\
+    ->     -> promotion_date_raw VARCHAR(20),\
+    ->     -> type_flag VARCHAR(5)\
+    -> );  \
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> eempleado VARCHAR(20),\
+    -> name VARCHAR(50),\
+    -> apellido VARCHAR(50),\
+' at line 2\
+mysql> CREATE TABLE empleados_staging (\
+    ->     empleado              VARCHAR(20),\
+    ->     name                  VARCHAR(100),\
+    ->     apellido              VARCHAR(100),\
+    ->     birth_date_raw        VARCHAR(20),\
+    ->     genero_raw            VARCHAR(20),\
+    ->     area                  VARCHAR(100),\
+    ->     salary_raw            VARCHAR(50),\
+    ->     start_date_raw        VARCHAR(20),\
+    ->     finish_date_raw       VARCHAR(20),\
+    ->     promotion_date_raw    VARCHAR(20),\
+    ->     type_flag             VARCHAR(5)\
+    -> );\
+Query OK, 0 rows affected (0.36 sec)\
+\
+mysql> SHOW TABLES;\
++-------------------+\
+| Tables_in_clean   |\
++-------------------+\
+| empleados_staging |\
++-------------------+\
+1 row in set (0.10 sec)\
+\
+mysql> SET GLOBAL local_infile = 1;\
+Query OK, 0 rows affected (0.00 sec)\
+\
+mysql> LOAD DATA LOCAL INFILE '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8.csv'\
+    -> INTO TABLE empleados_staging\
+    -> FIELDS TERMINATED BY ','\
+    -> ENCLOSED BY '"'\
+    -> LINES TERMINATED BY '\\n'\
+    -> IGNORE 1 LINES;\
+ERROR 2068 (HY000): LOAD DATA LOCAL INFILE file request rejected due to restrictions on access.\
+mysql> exit;\
+Bye\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql --local.infile=1 -u root -p\
+mysql: [ERROR] unknown variable 'local.infile=1'.\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql --local-infile=1 -u root -p\
+Enter password: \
+Welcome to the MySQL monitor.  Commands end with ; or \\g.\
+Your MySQL connection id is 11\
+Server version: 8.0.44 MySQL Community Server - GPL\
+\
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.\
+\
+Oracle is a registered trademark of Oracle Corporation and/or its\
+affiliates. Other names may be trademarks of their respective\
+owners.\
+\
+Type 'help;' or '\\h' for help. Type '\\c' to clear the current input statement.\
+\
+mysql> USE clean;\
+Reading table information for completion of table and column names\
+You can turn off this feature to get a quicker startup with -A\
+\
+Database changed\
+mysql> SHOW VARIABLES LIKE 'local_infile';\
++---------------+-------+\
+| Variable_name | Value |\
++---------------+-------+\
+| local_infile  | ON    |\
++---------------+-------+\
+1 row in set (0.08 sec)\
+\
+mysql> LOAD DATA LOCAL INFILE '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8.csv'\
+    -> INTO TABLE empleados_staging\
+    -> FIELDS TERMINATED BY ','\
+    -> ENCLOSED BY '"'\
+    -> LINES TERMINATED BY '\\n'\
+    -> IGNORE 1 LINES;\
+Query OK, 3 rows affected, 33 warnings (0.07 sec)\
+Records: 3  Deleted: 0  Skipped: 0  Warnings: 33\
+\
+mysql> SELECT \
+    -> \
+Display all 781 possibilities? (y or n) \
+    -> n\
+    -> \
+    -> \\c\
+mysql> SELECT COUNT(*) FROM empleados_staging;\
++----------+\
+| COUNT(*) |\
++----------+\
+|        3 |\
++----------+\
+1 row in set (0.02 sec)\
+\
+mysql> TRUNCATE TABLE empleados_staging;\
+Query OK, 0 rows affected (0.08 sec)\
+\
+mysql> LOAD DATA LOCAL INFILE '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8.csv'\
+    -> INTO TABLE empleados_staging\
+    -> FIELDS TERMINATED BY ','\
+    -> ENCLOSED BY '"'\
+    -> LINES TERMINATED BY '\\r\\n'\
+    -> IGNORE 1 LINES\
+    -> (\
+    -> empleado,\
+    -> name,\
+    -> apellido,\
+    -> birth_date_raw,\
+    -> genero_raw,\
+    -> area,\
+    -> salary_raw,\
+    -> start_date_raw,\
+    -> finish_date_raw,\
+    -> promotion_date_raw,\
+    -> type_flag\
+    -> );\
+Query OK, 0 rows affected (0.04 sec)\
+Records: 0  Deleted: 0  Skipped: 0  Warnings: 0\
+\
+mysql> SELECT COUNT(*) FROM empleados_staging;\
++----------+\
+| COUNT(*) |\
++----------+\
+|        0 |\
++----------+\
+1 row in set (0.00 sec)\
+\
+mysql> TRUNCATE TABLE empleados_staging;\
+Query OK, 0 rows affected (0.05 sec)\
+\
+mysql> \
+mysql> LOAD DATA LOCAL INFILE '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8_fix.csv'\
+    -> INTO TABLE empleados_staging\
+    -> FIELDS TERMINATED BY ','\
+    -> OPTIONALLY ENCLOSED BY '"'\
+    -> ESCAPED BY '"'\
+    -> LINES TERMINATED BY '\\n'\
+    -> IGNORE 1 LINES\
+    -> (\
+    ->   empleado,\
+    ->   name,\
+    ->   apellido,\
+    ->   birth_date_raw,\
+    ->   genero_raw,\
+    ->   area,\
+    ->   salary_raw,\
+    ->   start_date_raw,\
+    ->   finish_date_raw,\
+    ->   promotion_date_raw,\
+    ->   type_flag\
+    -> );\
+ERROR 2 (HY000): File '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8_fix.csv' not found (OS errno 2 - No such file or directory)\
+mysql> \
+mysql> SHOW WARNINGS;\
+Empty set (0.00 sec)\
+\
+mysql> SELECT COUNT(*) FROM empleados_staging;\
++----------+\
+| COUNT(*) |\
++----------+\
+|        0 |\
++----------+\
+1 row in set (0.01 sec)\
+\
+mysql> SELECT * FROM empleados_staging LIMIT 5;\
+Empty set (0.00 sec)\
+\
+mysql> ls -lh "/Users/darwincamachoherrera/Escritorio/" | grep Limpieza\
+    -> \
+    -> \\c\
+mysql> exit;\
+Bye\
+darwincamachoherrera@Darwins-MacBook-Air ~ % ls -lh ~/Desktop | grep Limpieza\
+\
+-rw-r--r--@  1 darwincamachoherrera  staff   2.0M Dec 23 20:08 Limpieza_limpio.csv\
+-rw-r--r--@  1 darwincamachoherrera  staff   1.9M Dec 23 20:59 Limpieza_limpio_utf8.csv\
+darwincamachoherrera@Darwins-MacBook-Air ~ % head -n 3 ~/Desktop/Limpieza_limpio_utf8.csv | cat -v\
+\
+empleado,Name,Apellido,birth_date,g\'8enero,area,salary,star_date,finish_date,promotion_date,type;\
+"00-0037846,Kimmy,Walczynski,06/04/1991,hombre,Engineering,"" $77,719 "",1/20/2002,,,0";\
+"00-0041533,Ignatius,Springett,6/29/1984,hombre,Business Development,"" $135,189 "",04/08/2019,,,0";\
+darwincamachoherrera@Darwins-MacBook-Air ~ % python3 - <<'PY'\
+from pathlib import Path\
+\
+inp = Path.home() / "Desktop" / "Limpieza_limpio_utf8.csv"\
+out = Path.home() / "Desktop" / "Limpieza_limpio_utf8_fix.csv"\
+\
+with inp.open("r", encoding="utf-8", errors="replace", newline="") as f_in, \\\
+     out.open("w", encoding="utf-8", newline="\\n") as f_out:\
+\
+    first = True\
+    for line in f_in:\
+        line = line.rstrip("\\n")\
+\
+        if first:\
+            # Arreglos en header\
+            line = line.replace("g\'8enero", "genero")\
+            line = line.replace("star_date", "start_date")\
+            if line.endswith(";"):\
+                line = line[:-1]\
+            f_out.write(line + "\\n")\
+            first = False\
+            continue\
+\
+        # Cada registro viene como:  "....";   => quitamos comilla inicial y el '";' final\
+        if line.startswith('"') and line.endswith('";'):\
+            line = line[1:-2]\
+\
+        # Dobles comillas "" -> "  (para que salary quede: " $77,719 ")\
+        line = line.replace('""', '"')\
+\
+        f_out.write(line + "\\n")\
+\
+print("OK ->", out)\
+PY\
+\
+OK -> /Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8_fix.csv\
+darwincamachoherrera@Darwins-MacBook-Air ~ % ls -lh ~/Desktop | grep Limpieza_limpio_utf8_fix\
+head -n 3 ~/Desktop/Limpieza_limpio_utf8_fix.csv | cat -v\
+\
+-rw-r--r--   1 darwincamachoherrera  staff   1.8M Dec 24 07:30 Limpieza_limpio_utf8_fix.csv\
+empleado,Name,Apellido,birth_date,genero,area,salary,start_date,finish_date,promotion_date,type\
+00-0037846,Kimmy,Walczynski,06/04/1991,hombre,Engineering," $77,719 ",1/20/2002,,,0\
+00-0041533,Ignatius,Springett,6/29/1984,hombre,Business Development," $135,189 ",04/08/2019,,,0\
+darwincamachoherrera@Darwins-MacBook-Air ~ % mysql --local-infile=1 -u root -p\
+Enter password: \
+Welcome to the MySQL monitor.  Commands end with ; or \\g.\
+Your MySQL connection id is 14\
+Server version: 8.0.44 MySQL Community Server - GPL\
+\
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.\
+\
+Oracle is a registered trademark of Oracle Corporation and/or its\
+affiliates. Other names may be trademarks of their respective\
+owners.\
+\
+Type 'help;' or '\\h' for help. Type '\\c' to clear the current input statement.\
+\
+mysql> SHOW VARIABLES LIKE 'local_infile';\
++---------------+-------+\
+| Variable_name | Value |\
++---------------+-------+\
+| local_infile  | ON    |\
++---------------+-------+\
+1 row in set (0.01 sec)\
+\
+mysql> TRUNCATE TABLE empleados_staging;\
+ERROR 1046 (3D000): No database selected\
+mysql> \
+mysql> LOAD DATA LOCAL INFILE '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8_fix.csv'\
+    -> INTO TABLE empleados_staging\
+    -> CHARACTER SET utf8mb4\
+    -> FIELDS TERMINATED BY ','\
+    -> OPTIONALLY ENCLOSED BY '"'\
+    -> LINES TERMINATED BY '\\n'\
+    -> IGNORE 1 LINES\
+    -> (\
+    ->   empleado,\
+    ->   name,\
+    ->   apellido,\
+    ->   birth_date_raw,\
+    ->   genero_raw,\
+    ->   area,\
+    ->   salary_raw,\
+    ->   start_date_raw,\
+    ->   finish_date_raw,\
+    ->   promotion_date_raw,\
+    ->   type_flag\
+    -> );\
+ERROR 1046 (3D000): No database selected\
+mysql> USE clean;\
+Reading table information for completion of table and column names\
+You can turn off this feature to get a quicker startup with -A\
+\
+Database changed\
+mysql> TRUNCATE TABLE empleados_staging;\
+Query OK, 0 rows affected (0.05 sec)\
+\
+mysql> LOAD DATA LOCAL INFILE '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8_fix.csv'\
+    -> INTO TABLE empleados_staging\
+    -> CHARACTER SET utf8mb4\
+    -> FIELDS TERMINATED BY ','\
+    -> OPTIONALLY ENCLOSED BY '"'\
+    -> LINES TERMINATED BY '\\n'\
+    -> IGNORE 1 LINES\
+    -> (\
+    ->   empleado,\
+    ->   name,\
+    ->   apellido,\
+    ->   birth_date_raw,\
+    ->   genero_raw,\
+    ->   area,\
+    ->   salary_raw,\
+    ->   start_date_raw,\
+    ->   finish_date_raw,\
+    ->   promotion_date_raw,\
+    ->   type_flag\
+    -> );\
+Query OK, 22222 rows affected, 3931 warnings (0.45 sec)\
+Records: 22222  Deleted: 0  Skipped: 0  Warnings: 3931\
+\
+mysql> SHOW WARNINGS LIMIT 20;\
++---------+------+--------------------------------------------------------+\
+| Level   | Code | Message                                                |\
++---------+------+--------------------------------------------------------+\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 5   |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 9   |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 23  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 24  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 26  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 28  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 29  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 30  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 37  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 40  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 43  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 46  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 56  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 57  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 64  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 89  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 92  |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 112 |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 115 |\
+| Warning | 1265 | Data truncated for column 'finish_date_raw' at row 118 |\
++---------+------+--------------------------------------------------------+\
+20 rows in set (0.00 sec)\
+\
+mysql> SELECT COUNT(*) FROM empleados_staging;\
++----------+\
+| COUNT(*) |\
++----------+\
+|    22222 |\
++----------+\
+1 row in set (0.01 sec)\
+\
+mysql> SELECT * FROM empleados_staging LIMIT 5;\
++------------+----------+-------------+----------------+------------+----------------------+------------+----------------+----------------------+--------------------+-----------+\
+| empleado   | name     | apellido    | birth_date_raw | genero_raw | area                 | salary_raw | start_date_raw | finish_date_raw      | promotion_date_raw | type_flag |\
++------------+----------+-------------+----------------+------------+----------------------+------------+----------------+----------------------+--------------------+-----------+\
+| 00-0037846 | Kimmy    | Walczynski  | 06/04/1991     | hombre     | Engineering          |  $77,719   | 1/20/2002      |                      |                    | 0         |\
+| 00-0041533 | Ignatius | Springett   | 6/29/1984      | hombre     | Business Development |  $135,189  | 04/08/2019     |                      |                    | 0         |\
+| 00-0045747 | Corbie   | Bittlestone | 7/29/1989      | hombre     | Sales                |  $122,484  | 10/12/2010     |                      |                    | 1         |\
+| 00-0055274 | Baxy     | Matton      | 9/14/1982      | mujer      | Services             |  $82,100   | 04/10/2005     |                      |                    | 0         |\
+| 00-0076100 | Terrell  | Suff        | 04/11/1994     | mujer      | Product Management   |  $114,648  | 9/29/2010      | 2029-10-29 06:09:38  |                    | 1         |\
++------------+----------+-------------+----------------+------------+----------------------+------------+----------------+----------------------+--------------------+-----------+\
+5 rows in set (0.00 sec)\
+\
+mysql> SHOW CREATE TABLE empleados_staging\\G\
+*************************** 1. row ***************************\
+       Table: empleados_staging\
+Create Table: CREATE TABLE `empleados_staging` (\
+  `empleado` varchar(20) DEFAULT NULL,\
+  `name` varchar(100) DEFAULT NULL,\
+  `apellido` varchar(100) DEFAULT NULL,\
+  `birth_date_raw` varchar(20) DEFAULT NULL,\
+  `genero_raw` varchar(20) DEFAULT NULL,\
+  `area` varchar(100) DEFAULT NULL,\
+  `salary_raw` varchar(50) DEFAULT NULL,\
+  `start_date_raw` varchar(20) DEFAULT NULL,\
+  `finish_date_raw` varchar(20) DEFAULT NULL,\
+  `promotion_date_raw` varchar(20) DEFAULT NULL,\
+  `type_flag` varchar(5) DEFAULT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci\
+1 row in set (0.00 sec)\
+\
+mysql> ALTER TABLE empleados_staging\
+    ->   MODIFY finish_date_raw VARCHAR(50),\
+    ->   MODIFY promotion_date_raw VARCHAR(50),\
+    ->   MODIFY start_date_raw VARCHAR(50),\
+    ->   MODIFY birth_date_raw VARCHAR(50),\
+    ->   MODIFY salary_raw VARCHAR(50);\
+Query OK, 0 rows affected (0.08 sec)\
+Records: 0  Duplicates: 0  Warnings: 0\
+\
+mysql> TRUNCATE TABLE empleados_staging;\
+Query OK, 0 rows affected (0.06 sec)\
+\
+mysql> LOAD DATA LOCAL INFILE '/Users/darwincamachoherrera/Desktop/Limpieza_limpio_utf8_fix.csv'\
+    -> INTO TABLE empleados_staging\
+    -> FIELDS TERMINATED BY ','\
+    -> OPTIONALLY ENCLOSED BY '"'\
+    -> LINES TERMINATED BY '\\n'\
+    -> IGNORE 1 LINES\
+    -> (\
+    ->   empleado,\
+    ->   name,\
+    ->   apellido,\
+    ->   birth_date_raw,\
+    ->   genero_raw,\
+    ->   area,\
+    ->   salary_raw,\
+    ->   start_date_raw,\
+    ->   finish_date_raw,\
+    ->   promotion_date_raw,\
+    ->   type_flag\
+    -> );\
+Query OK, 22222 rows affected (0.42 sec)\
+Records: 22222  Deleted: 0  Skipped: 0  Warnings: 0\
+\
+mysql> SHOW WARNINGS LIMIT 50;\
+Empty set (0.00 sec)\
+\
+mysql> SELECT COUNT(*) FROM empleados_staging;\
++----------+\
+| COUNT(*) |\
++----------+\
+|    22222 |\
++----------+\
+1 row in set (0.01 sec)\
+\
+mysql> ^C\
+mysql> exit;\
+Bye\
+darwincamachoherrera@Darwins-MacBook-Air ~ % python3 - <<'PY'                                \
+from pathlib import Path                                 \
+\
+inp = Path.home() / "Desktop" / "Limpieza_limpio_utf8.csv"\
+out = Path.home() / "Desktop" / "Limpieza_limpio_utf8_fix.csv"\
+\
+with inp.open("r", encoding="utf-8", errors="replace", newline="") as f_in, \\\
+     out.open("w", encoding="utf-8", newline="\\n") as f_out:\
+\
+    first = True\
+    for line in f_in:\
+        line = line.rstrip("\\n")\
+\
+        if first:\
+            # Arreglos en header\
+            line = line.replace("g\'8enero", "genero")\
+            line = line.replace("star_date", "start_date")\
+            if line.endswith(";"):\
+                line = line[:-1]\
+            f_out.write(line + "\\n")\
+            first = False\
+            continue\
+\
+        # Cada registro viene como:  "....";   => quitamos comilla inicial y el '";' final\
+        if line.startswith('"') and line.endswith('";'):\
+            line = line[1:-2]\
+\
+        # Dobles comillas "" -> "  (para que salary quede: " $77,719 ")\
+        line = line.replace('""', '"')\
+\
+        f_out.write(line + "\\n")\
+\
+print("OK ->", out)\
+PY\
+}

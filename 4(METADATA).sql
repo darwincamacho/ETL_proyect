@@ -1,0 +1,5 @@
+/*
+4.-VIEW TABLE PROPERTIES 
+*/
+
+DESCRIBE clean;
