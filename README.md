@@ -1,309 +1,186 @@
-# ETL Data Cleaning and KPI Dashboard
+# Workforce Data Cleaning with MySQL & Excel KPI Dashboard
 
-> End-to-end ETL and business intelligence project focused on transforming raw CSV data into a clean dataset and an Excel KPI dashboard for business analysis.
+> A portfolio case study demonstrating employee-data preparation with MySQL and workforce reporting in Excel, from a raw CSV dataset to SQL-based cleaning steps and analytical outputs.
 
-![SQL](https://img.shields.io/badge/SQL-Data%20Transformation-336791)
+![MySQL](https://img.shields.io/badge/MySQL-Data%20Cleaning-4479A1?logo=mysql&logoColor=white)
 ![Excel](https://img.shields.io/badge/Excel-KPI%20Dashboard-217346?logo=microsoftexcel&logoColor=white)
-![ETL](https://img.shields.io/badge/ETL-Data%20Cleaning%20Pipeline-2563EB)
-![Business Intelligence](https://img.shields.io/badge/Business%20Intelligence-KPI%20Reporting-0F172A)
-![Data Quality](https://img.shields.io/badge/Data%20Quality-Validation%20Rules-7C3AED)
+![SQL](https://img.shields.io/badge/SQL-Transformations-336791)
+![Portfolio](https://img.shields.io/badge/Project-Portfolio-334155)
 
-## Executive Summary
+## Project Overview
 
-ETL Data Cleaning and KPI Dashboard is a portfolio project that demonstrates how raw operational data can be transformed into structured business insights.
+Organizations often receive employee information in CSV files that need cleaning before they can be used for reporting. Common preparation tasks include inspecting duplicate rows, trimming whitespace, normalizing categorical values, converting salaries into numeric fields, and standardizing date formats.
 
-The project starts with a raw CSV file, applies data cleaning and transformation logic using SQL, and produces a business-ready Excel dashboard with key performance indicators.
+This repository documents a **workforce data cleaning and reporting exercise** using:
 
-The objective is to simulate a real-world data workflow where inconsistent source data must be cleaned, validated, structured and converted into a reporting asset for business users.
+- A source dataset: `ORIGINAL_DATA.csv`
+- Individual SQL scripts written for **MySQL**
+- Two exported CSV files with employee counts by area
+- An Excel KPI dashboard and a screenshot of its presentation
 
-This repository is presented as a portfolio project for Data Analyst, BI Analyst and Junior Analytics Engineer roles.
+The files demonstrate SQL transformation techniques and an Excel reporting deliverable. **They do not constitute an automated Python pipeline, a SQL Server solution, or a fully tested one-command ETL application.**
 
-## Process Workflow
+## Business Objective
 
-```mermaid
-flowchart TD
-    A["Raw CSV Data<br/><br/>Unstructured employee records"]
-    B["Data Cleaning<br/><br/>Duplicates, nulls and formatting issues"]
-    C["SQL Transformation<br/><br/>Business-ready tables and KPI logic"]
-    D["Excel Dashboard<br/><br/>Pivot tables and KPI visuals"]
-    E["Business Insights<br/><br/>Workforce analysis and data quality review"]
+Prepare employee-related source data for clearer analysis and reporting. The SQL examples cover data-quality checks, transformation steps, and summary queries that can support workforce analytics.
 
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-```
+This is a **portfolio/learning project**, not a claim of client delivery or production deployment.
 
-## Portfolio Case
-
-| Category | Description |
-|---|---|
-| Industry | Human Resources / Business Operations |
-| Business Area | Workforce Analytics |
-| Main Problem | Raw employee data requires cleaning before analysis |
-| Solution Type | ETL workflow and KPI dashboard |
-| Data Source | CSV file |
-| Transformation Layer | SQL |
-| Reporting Output | Excel dashboard |
-| Target Roles | Data Analyst, BI Analyst, Analytics Engineer Jr |
-
-## Business Problem
-
-Organizations often receive operational data in raw formats such as CSV files.
-
-Before this data can be used for reporting, it usually requires cleaning, validation and transformation.
-
-Common issues include:
-
-- Duplicate records.
-- Missing values.
-- Inconsistent formatting.
-- Invalid email fields.
-- Unstructured categorical values.
-- Columns that are not ready for KPI calculation.
-- Lack of a clean reporting table.
-
-Without an ETL process, business users may rely on inconsistent spreadsheets, manual corrections and unreliable KPI calculations.
-
-This project addresses that problem by transforming raw employee data into structured insights through SQL and Excel.
-
-## Solution Overview
-
-The project implements a simple but complete ETL workflow.
-
-The solution:
-
-- Ingests raw employee data from a CSV file.
-- Cleans and normalizes the dataset.
-- Handles duplicates and formatting issues.
-- Applies SQL transformations.
-- Prepares a structured dataset for reporting.
-- Builds KPI calculations in Excel.
-- Creates an Excel dashboard for workforce analysis.
-- Includes screenshots to present the final business output.
-
-The result is a clean reporting workflow that connects raw data preparation with business intelligence delivery.
-
-## Business Value
-
-This project provides value by:
-
-- Improving data quality before reporting.
-- Reducing manual spreadsheet cleanup.
-- Creating consistent KPI definitions.
-- Supporting workforce analysis through a structured dashboard.
-- Making HR and operational indicators easier to review.
-- Demonstrating how SQL and Excel can be combined in a practical BI workflow.
-- Providing a reusable ETL pattern for small and medium-sized business reports.
-
-## ETL Process
-
-The ETL process follows three stages:
+## Workflow at a Glance
 
 ```mermaid
-flowchart TD
-    A["Extract<br/><br/>Read raw CSV data"]
-    B["Transform<br/><br/>Clean, validate and normalize data with SQL"]
-    C["Load<br/><br/>Prepare Excel dashboard and KPI outputs"]
-
-    A --> B
-    B --> C
+flowchart LR
+    A["Raw employee CSV"] --> B["MySQL staging table"]
+    B --> C["SQL inspection and cleaning steps"]
+    C --> D["Summary queries and CSV outputs"]
+    D --> E["Excel reporting / presentation"]
 ```
 
-### Extract
+**Important:** the diagram illustrates the intended analytical workflow. The repository contains separate SQL scripts and reporting files, not code that automatically imports the CSV into MySQL or refreshes the Excel workbook end to end.
 
-The source data is ingested from a CSV file.
+## Main Techniques Demonstrated
 
-The raw dataset represents employee or workforce-related information used to calculate business indicators.
-
-### Transform
-
-The transformation phase applies SQL logic to prepare the data for analysis.
-
-This includes:
-
-- Removing duplicate records.
-- Standardizing formats.
-- Handling missing values.
-- Validating email fields.
-- Normalizing categorical fields.
-- Preparing clean columns for KPI calculation.
-
-### Load
-
-The cleaned dataset is used to build an Excel dashboard.
-
-The final output includes KPI calculations, pivot tables and dashboard visuals.
-
-## Key KPIs
-
-| KPI | Description |
+| Area | What the SQL scripts cover |
 |---|---|
-| Total Employees | Total number of employee records analyzed. |
-| Active Employees | Number of employees classified as active. |
-| Average Salary | Average salary calculated from the cleaned dataset. |
-| Average Tenure | Average employee tenure. |
-| Headcount by Area | Employee distribution by business area. |
-| Work Mode Distribution | Distribution by work mode, such as remote, hybrid or on-site. |
-| Age Distribution | Employee distribution by age range. |
-| Null Rate | Percentage of missing values detected in relevant fields. |
-| Email Validation | Identification of valid and invalid email formats. |
+| Source inspection | Querying the staging data and inspecting table metadata |
+| Duplicate analysis | Counting repeated employee IDs and creating a table with distinct rows |
+| Whitespace cleaning | Applying `TRIM` and regular-expression replacement |
+| Category standardization | Mapping source gender and work-mode values to normalized labels |
+| Numeric conversion | Removing currency symbols and separators before converting salary values |
+| Date standardization | Parsing differing date representations and deriving an age field |
+| Text derivation | Building an email-style field from name and work-mode information |
+| Reporting queries | Selecting relevant employee columns and counting employees by area |
 
-## Dashboard Overview
+These are **examples of data cleaning and transformation logic**, not evidence of automated data-quality testing or production-grade validation. The email script **generates a field**; it does not verify that an email address is deliverable.
 
-The final dashboard was built in Excel using the cleaned and structured dataset produced by the ETL process.
+## SQL Files
 
-The dashboard includes:
+The numbered SQL scripts are stored in the **repository root**, not in a `sql/` folder.
 
-- KPI cards.
-- Pivot tables.
-- Workforce distribution analysis.
-- Data quality indicators.
-- Visual summaries for business review.
+| Step | File | Focus |
+|---|---|---|
+| 1 | `1_CREATE_TABLE_AND_STORE_PROCEDURE.sql` | Database context and stored procedure examples |
+| 2 | `2_CHANGE_COLUMN_HEADINGS.sql` | Renaming staging-table columns |
+| 3 | `3_IDENTIFY_DUPLICATES.sql` | Duplicate checks and distinct-row table creation |
+| 4 | `4(METADATA).sql` | Table metadata inspection |
+| 5 | `5_WHITESPACE_NOTMALIZATION.sql` | Whitespace normalization |
+| 6 | `6_FIND_AND_REPLACE.sql` | Category and text value replacement |
+| 7 | `7_FORMAT_TEXT_INTO_NUMBERS.sql` | Salary conversion |
+| 8 | `8_DATE_FORMAT.sql` | Date parsing and derived date fields |
+| 9 | `9_TEXT_FUNCTION.sql` | Derived email-style text field |
+| 10 | `10_CREATING_AND_EXPORTING_FINAL_DATA.sql` | Employee selections and counts by area |
 
-Dashboard file:
+The scripts use **MySQL-specific syntax**, including `DELIMITER`, `STR_TO_DATE`, `TIMESTAMPDIFF`, and `REGEXP_REPLACE`. They are not T-SQL scripts for Microsoft SQL Server.
 
-```text
-/excel/etl_kpi_dashboard.xlsx
-```
+### Execution Considerations
 
-Screenshot:
+The SQL files document development steps rather than a fully reproducible migration:
 
-```text
-/screenshots/dashboard_overview.jpeg
-```
+- A staging table named `empleados_staging` and an appropriate source schema must be prepared separately.
+- Some scripts reference intermediate tables or stored procedures created in other steps. Their exact dependencies and execution order must be reviewed before running them.
+- Several statements rename, update, create, or drop tables. **Do not execute them against important data without a backup and a disposable test environment.**
+- Results depend on the input data, MySQL version, and actual table definitions.
 
-![Dashboard Overview](screenshots/dashboard_overview.jpeg)
+No end-to-end execution or database integration test is claimed by this README.
 
-## Technical Architecture
+## Reporting Outputs
 
-```mermaid
-flowchart TD
-    A["CSV File<br/><br/>Raw data source"]
-    B["SQL Scripts<br/><br/>Cleaning and transformation logic"]
-    C["Clean Dataset<br/><br/>Structured reporting table"]
-    D["Excel Workbook<br/><br/>Pivot tables and KPI calculations"]
-    E["Dashboard Screenshot<br/><br/>Portfolio presentation"]
+### Excel KPI Dashboard
 
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-```
+The repository contains an Excel workbook for the reporting/presentation stage:
 
-## Tools Used
+[Open the Excel dashboard file](excel/etl_kpi_dashboard.xlsx)
 
-| Tool | Purpose |
-|---|---|
-| SQL | Data cleaning, validation and transformation |
-| Excel | Dashboard creation, KPI calculation and pivot tables |
-| Git | Version control |
-| GitHub | Portfolio documentation and project presentation |
+### Dashboard Preview
+
+![Excel KPI dashboard preview](screenshots/dashboard_overview.png)
+
+[View the dashboard image directly](screenshots/dashboard_overview.png)
+
+The screenshot and workbook are included as portfolio artifacts. Their presence does not, by itself, establish an automatically refreshed link between MySQL and Excel.
+
+### Exported Summaries
+
+The folder `11_CREATING _AND_EXPORTING_THE_FINAL DATA/` contains:
+
+- `number_of_employyes.csv`
+- `select_relevant _data.csv`
+
+Both files currently contain a two-column employee-count-by-area summary (`area`, `total_employee`). They should not be interpreted as two different datasets solely because their file names differ.
 
 ## Repository Structure
 
 ```text
-etl-data-cleaning-kpi-dashboard/
-│
+ETL_proyect/
+├── .gitignore
 ├── README.md
-│
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── README.md
-│
-├── sql/
-│   └── data_cleaning_transformation.sql
-│
+├── ORIGINAL_DATA.csv
+├── 0_CSV_ENCODING_AND_PREPROCESSING.rtf
+├── 1_CREATE_TABLE_AND_STORE_PROCEDURE.sql
+├── 2_CHANGE_COLUMN_HEADINGS.sql
+├── 3_IDENTIFY_DUPLICATES.sql
+├── 4(METADATA).sql
+├── 5_WHITESPACE_NOTMALIZATION.sql
+├── 6_FIND_AND_REPLACE.sql
+├── 7_FORMAT_TEXT_INTO_NUMBERS.sql
+├── 8_DATE_FORMAT.sql
+├── 9_TEXT_FUNCTION.sql
+├── 10_CREATING_AND_EXPORTING_FINAL_DATA.sql
+├── 11_CREATING _AND_EXPORTING_THE_FINAL DATA/
+│   ├── number_of_employyes.csv
+│   └── select_relevant _data.csv
 ├── excel/
 │   └── etl_kpi_dashboard.xlsx
-│
-├── screenshots/
-│   └── dashboard_overview.jpeg
-└── .gitignore
+└── screenshots/
+    ├── dashboard_overview.png
+    └── Data_•_Analytics_•_Workforce_202605011212.jpeg
 ```
 
-Adjust the file names if the actual repository uses different names.
+## How to Explore the Project
 
-## How to Use
+1. Clone the repository:
 
-Clone the repository:
+   ```bash
+   git clone https://github.com/darwincamacho/ETL_proyect.git
+   cd ETL_proyect
+   ```
 
-```bash
-git clone <repository-url>
-cd etl-data-cleaning-kpi-dashboard
-```
+2. Review `ORIGINAL_DATA.csv` and the preprocessing notes in `0_CSV_ENCODING_AND_PREPROCESSING.rtf`.
+3. Read the numbered MySQL scripts to understand the transformation steps. If you choose to run them, first prepare a separate MySQL environment and check their dependencies and potentially destructive statements.
+4. Open `excel/etl_kpi_dashboard.xlsx` to inspect the reporting workbook.
+5. View `screenshots/dashboard_overview.png` for the dashboard preview.
 
-Review the SQL scripts:
+The workbook can be inspected independently of running the SQL scripts. There is no command in this repository that automatically builds every output from scratch.
 
-```text
-/sql/
-```
+## Tools
 
-Open the Excel dashboard:
+| Tool | Purpose |
+|---|---|
+| MySQL / SQL | Data inspection, cleaning, transformation, and summarization |
+| CSV | Raw input and exported summary files |
+| Microsoft Excel | KPI reporting workbook |
+| GitHub | Project files, screenshots, and documentation |
 
-```text
-/excel/etl_kpi_dashboard.xlsx
-```
+**Not part of the implemented pipeline:** Python automation, Power BI reports, SQL Server ETL, or an orchestration scheduler.
 
-Review the dashboard screenshot:
+## Data Privacy and Reuse
 
-```text
-/screenshots/dashboard_overview.jpeg
-```
+Employee-related datasets can contain personal information. **The provenance, consent, and anonymization status of `ORIGINAL_DATA.csv` have not been independently verified as part of this documentation update.** Review the dataset before reusing it, sharing it further, or publishing additional extracts.
 
-## Data Quality Checks
+Do not add production credentials or private employee data to this repository.
 
-The project includes basic data quality checks such as:
+## Potential Improvements
 
-- Duplicate validation.
-- Null value review.
-- Email format validation.
-- Field normalization.
-- Category consistency.
-- Data type preparation for KPI calculation.
+Future enhancements could include:
 
-These checks help ensure that the final dashboard is based on structured and reliable data.
+- A reproducible staging-table import script and a verified run order.
+- Automated duplicate and data-quality checks.
+- Explicit KPI definitions and reconciliation tests.
+- Automated workbook refresh or a Python orchestration layer.
+- Sanitized demonstration datasets and a documented data dictionary.
 
-## Security and Data Privacy
+These are **possible future improvements**, not current features.
 
-This repository is designed as a portfolio project.
+---
 
-It does not include:
-
-- Real confidential employee data.
-- Private credentials.
-- Internal company files.
-- Sensitive HR information.
-- Production database connections.
-
-Any dataset included in this repository should be public, anonymized or synthetic.
-
-## Possible Extensions
-
-Future improvements may include:
-
-- Rebuilding the dashboard in Power BI.
-- Adding Python-based data profiling.
-- Automating the ETL process with Python.
-- Loading cleaned data into SQL Server.
-- Creating stored procedures for recurring transformation.
-- Adding a data quality report.
-- Building a star schema for workforce analytics.
-- Adding documentation for each KPI definition.
-
-## Disclaimer
-
-This project simulates a real-world ETL and business intelligence workflow.
-
-The objective is to demonstrate data cleaning, SQL transformation, KPI definition and dashboard creation using Excel.
-
-The project is intended for educational and portfolio purposes.
-
-## Author
-
-**Darwin Camacho**  
-Data Analyst | SQL Server | Python | Power BI | Business Intelligence | Sales Analytics
-
-- GitHub: [darwincamacho](https://github.com/darwincamacho)
-- LinkedIn: [Darwin Camacho](ADD_LINKEDIN_URL_HERE)
+**Portfolio focus:** MySQL data cleaning, CSV preparation, workforce summaries, and Excel reporting.
